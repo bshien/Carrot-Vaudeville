@@ -17,6 +17,8 @@
 		CA1033D820FBC586007723B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA1033D620FBC586007723B4 /* LaunchScreen.storyboard */; };
 		CA1033E320FBC586007723B4 /* PlatformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1033E220FBC586007723B4 /* PlatformerTests.swift */; };
 		CA1033EE20FBC586007723B4 /* PlatformerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1033ED20FBC586007723B4 /* PlatformerUITests.swift */; };
+		CA7C8BE920FD424F00D030F9 /* Overworld.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7C8BE820FD424F00D030F9 /* Overworld.swift */; };
+		CA7C8BEB20FD42C700D030F9 /* Overworld.sks in Resources */ = {isa = PBXBuildFile; fileRef = CA7C8BEA20FD42C700D030F9 /* Overworld.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		CA1033E920FBC586007723B4 /* PlatformerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlatformerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA1033ED20FBC586007723B4 /* PlatformerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformerUITests.swift; sourceTree = "<group>"; };
 		CA1033EF20FBC586007723B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CA7C8BE820FD424F00D030F9 /* Overworld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overworld.swift; sourceTree = "<group>"; };
+		CA7C8BEA20FD42C700D030F9 /* Overworld.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Overworld.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,8 @@
 			children = (
 				CA1033C720FBC579007723B4 /* AppDelegate.swift */,
 				CA1033C920FBC57A007723B4 /* GameScene.sks */,
+				CA7C8BE820FD424F00D030F9 /* Overworld.swift */,
+				CA7C8BEA20FD42C700D030F9 /* Overworld.sks */,
 				CA1033CB20FBC57A007723B4 /* Actions.sks */,
 				CA1033CD20FBC57A007723B4 /* GameScene.swift */,
 				CA1033CF20FBC57A007723B4 /* GameViewController.swift */,
@@ -242,6 +248,7 @@
 				CA1033CA20FBC57A007723B4 /* GameScene.sks in Resources */,
 				CA1033D520FBC586007723B4 /* Assets.xcassets in Resources */,
 				CA1033D820FBC586007723B4 /* LaunchScreen.storyboard in Resources */,
+				CA7C8BEB20FD42C700D030F9 /* Overworld.sks in Resources */,
 				CA1033CC20FBC57A007723B4 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,6 +276,7 @@
 			files = (
 				CA1033CE20FBC57A007723B4 /* GameScene.swift in Sources */,
 				CA1033D020FBC57A007723B4 /* GameViewController.swift in Sources */,
+				CA7C8BE920FD424F00D030F9 /* Overworld.swift in Sources */,
 				CA1033C820FBC579007723B4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

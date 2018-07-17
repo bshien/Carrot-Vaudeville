@@ -19,6 +19,8 @@
 		CA1033EE20FBC586007723B4 /* PlatformerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1033ED20FBC586007723B4 /* PlatformerUITests.swift */; };
 		CA7C8BE920FD424F00D030F9 /* Overworld.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7C8BE820FD424F00D030F9 /* Overworld.swift */; };
 		CA7C8BEB20FD42C700D030F9 /* Overworld.sks in Resources */ = {isa = PBXBuildFile; fileRef = CA7C8BEA20FD42C700D030F9 /* Overworld.sks */; };
+		CA7C8BED20FEB0B900D030F9 /* level1.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7C8BEC20FEB0B900D030F9 /* level1.swift */; };
+		CA7C8BEF20FEB0E100D030F9 /* level1.sks in Resources */ = {isa = PBXBuildFile; fileRef = CA7C8BEE20FEB0E100D030F9 /* level1.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		CA1033EF20FBC586007723B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CA7C8BE820FD424F00D030F9 /* Overworld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overworld.swift; sourceTree = "<group>"; };
 		CA7C8BEA20FD42C700D030F9 /* Overworld.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Overworld.sks; sourceTree = "<group>"; };
+		CA7C8BEC20FEB0B900D030F9 /* level1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = level1.swift; sourceTree = "<group>"; };
+		CA7C8BEE20FEB0E100D030F9 /* level1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = level1.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +112,8 @@
 			isa = PBXGroup;
 			children = (
 				CA1033C720FBC579007723B4 /* AppDelegate.swift */,
+				CA7C8BEC20FEB0B900D030F9 /* level1.swift */,
+				CA7C8BEE20FEB0E100D030F9 /* level1.sks */,
 				CA1033C920FBC57A007723B4 /* GameScene.sks */,
 				CA7C8BE820FD424F00D030F9 /* Overworld.swift */,
 				CA7C8BEA20FD42C700D030F9 /* Overworld.sks */,
@@ -246,6 +252,7 @@
 			files = (
 				CA1033D320FBC57A007723B4 /* Main.storyboard in Resources */,
 				CA1033CA20FBC57A007723B4 /* GameScene.sks in Resources */,
+				CA7C8BEF20FEB0E100D030F9 /* level1.sks in Resources */,
 				CA1033D520FBC586007723B4 /* Assets.xcassets in Resources */,
 				CA1033D820FBC586007723B4 /* LaunchScreen.storyboard in Resources */,
 				CA7C8BEB20FD42C700D030F9 /* Overworld.sks in Resources */,
@@ -275,6 +282,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA1033CE20FBC57A007723B4 /* GameScene.swift in Sources */,
+				CA7C8BED20FEB0B900D030F9 /* level1.swift in Sources */,
 				CA1033D020FBC57A007723B4 /* GameViewController.swift in Sources */,
 				CA7C8BE920FD424F00D030F9 /* Overworld.swift in Sources */,
 				CA1033C820FBC579007723B4 /* AppDelegate.swift in Sources */,

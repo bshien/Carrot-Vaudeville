@@ -24,8 +24,8 @@ class GameScene: SKScene {
             let fadeOut = SKAction.fadeOut(withDuration: 1.0)
             
             carrotMenu?.run(fadeOut, completion: {
-                let overworld = Overworld(fileNamed: "Overworld")
-                self.view?.presentScene(overworld)
+                let levelone = level1(fileNamed: "level1")
+                self.view?.presentScene(levelone)
             })
         }
         }

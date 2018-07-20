@@ -10,16 +10,35 @@ import UIKit
 import SpriteKit
 
 class level1: SKScene {
+    override func didMove(to: SKView){
+     
+        
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else {
+            return
+        }
+        
+        let touchLocation = touch.location(in: self)
+        let x = touchLocation.x
+        let y = touchLocation.y
+        
         let skele = self.childNode(withName: "skele")
         let shootBullet = SKAction.run({
             let bulletNode = self.createBullet()
             self.addChild(bulletNode)
-            bulletNode.physicsBody?.applyImpulse(CGVector(dx: 160.0, dy: 0))
+            bulletNode.physicsBody?.applyImpulse(CGVector(dx: x * 100, dy: y * 100))
         })
         
+        
         skele?.run(shootBullet)
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for _ in touches{
+            
+        }
     }
     
     

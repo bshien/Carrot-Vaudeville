@@ -21,15 +21,26 @@ class level1: SKScene {
         }
         
         let touchLocation = touch.location(in: self)
-        let x = touchLocation.x
-        let y = touchLocation.y
+        let xpos = touchLocation.x
+        let ypos = touchLocation.y
+        var forward: CGFloat  = 1
         
+        if xpos<0 {
+            forward = -1
+        }
         let skele = self.childNode(withName: "skele")
         let shootBullet = SKAction.run({
-            let bulletNode = self.createBullet()
+            let bulletNode = self.createBullet(forward: forward)
             self.addChild(bulletNode)
-            bulletNode.physicsBody?.applyImpulse(CGVector(dx: x * 100, dy: y * 100))
+          
+            let moveUpAction = SKAction.moveBy(x: xpos * 10, y: ypos * 10, duration: 2.0)
+            let destroy = SKAction.removeFromParent()
+            let sequence = SKAction.sequence([moveUpAction, destroy])
+            bulletNode.run(sequence)
+            
         })
+        
+        
         
         
         skele?.run(shootBullet)
@@ -54,12 +65,12 @@ class level1: SKScene {
     
     
     
-    func createBullet() -> SKSpriteNode {
+    func createBullet(forward: CGFloat) -> SKSpriteNode {
     let skele = self.childNode(withName: "skele")
     let skelePos = skele?.position
     let skeleWidth = skele?.frame.size.width
     let bullet = SKSpriteNode(imageNamed: "carrot.png")
-        bullet.position = CGPoint(x: skelePos!.x + skeleWidth!/2, y: skelePos!.y)
+        bullet.position = CGPoint(x: skelePos!.x + (skeleWidth!/2) * forward, y: skelePos!.y)
         bullet.name = "bulletNode"
         bullet.physicsBody = SKPhysicsBody(rectangleOf: bullet.frame.size)
         bullet.physicsBody?.usesPreciseCollisionDetection = true

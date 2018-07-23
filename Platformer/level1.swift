@@ -8,11 +8,27 @@
 
 import UIKit
 import SpriteKit
+import GameplayKit
 
-class level1: SKScene {
+class level1: SKScene, VaudevilleSpriteNodeButtonDelegate {
+    var jumpButton: VaudevilleSpriteNodeButton!
+    
     override func didMove(to: SKView){
-     
+        jumpButton = childNode(withName: "jumpButton") as! VaudevilleSpriteNodeButton
+        jumpButton.delegate = self
         
+        
+    }
+    
+    override func update(_ currentTime: TimeInterval){
+        let skele = self.childNode(withName: "skele")
+        let skelePos = skele?.position
+    //called before each frame is rendered
+        if (jumpButton.state == .down){
+            if skelePos?.x == 0 {
+                skele?.run(SKAction.moveBy(x: 0, y: 100, duration: 1.0))
+            }
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -78,4 +94,32 @@ class level1: SKScene {
         return bullet
         
     }
+    
+    
+    func spriteButtonDown(_ button: VaudevilleSpriteNodeButton){
+        print("spriteButtonDown")
+    }
+    func spriteButtonUp(_ button: VaudevilleSpriteNodeButton){
+        print("spriteButtonUp")
+    }
+    func spriteButtonMoved(_ button: VaudevilleSpriteNodeButton){
+        print("spriteButtonMoved")
+    }
+    func spriteButtonTapped(_ button: VaudevilleSpriteNodeButton){
+        print("spriteButtonTapped")
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

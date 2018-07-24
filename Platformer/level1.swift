@@ -25,10 +25,13 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate {
         let skele = self.childNode(withName: "skele")
         let skelePos = skele?.position
     //called before each frame is rendered
+        let jumpUp = SKAction.moveBy(x:0, y: 10, duration: 0.2)
+        let jumpDown = SKAction.moveBy(x:0, y: -10, duration: 0.2)
+        let jumpSeq = SKAction.sequence([jumpUp, jumpDown])
         if (jumpButton.state == .down){
-            if skelePos?.y == 0 {
-                skele?.run(SKAction.moveBy(x: 0, y: 100, duration: 1.0))
-            }
+            
+            skele?.run(jumpSeq)
+            
         }
     }
     
@@ -69,7 +72,9 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate {
         }
     }
     
-    
+    func jump(){
+        
+    }
     
     
     

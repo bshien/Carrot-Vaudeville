@@ -10,6 +10,7 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
+
 class level1: SKScene, VaudevilleSpriteNodeButtonDelegate {
     var jumpButton: VaudevilleSpriteNodeButton!
     
@@ -25,7 +26,7 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate {
         let skelePos = skele?.position
     //called before each frame is rendered
         if (jumpButton.state == .down){
-            if skelePos?.x == 0 {
+            if skelePos?.y == 0 {
                 skele?.run(SKAction.moveBy(x: 0, y: 100, duration: 1.0))
             }
         }

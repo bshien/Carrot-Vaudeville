@@ -13,10 +13,22 @@ import GameplayKit
 
 class level1: SKScene, VaudevilleSpriteNodeButtonDelegate {
     var jumpButton: VaudevilleSpriteNodeButton!
+    var leftButton: VaudevilleSpriteNodeButton!
+    var rightButton: VaudevilleSpriteNodeButton!
+    var cam: SKCameraNode?
     
     override func didMove(to: SKView){
         jumpButton = childNode(withName: "jumpButton") as! VaudevilleSpriteNodeButton
         jumpButton.delegate = self
+        leftButton = childNode(withName: "leftButton") as! VaudevilleSpriteNodeButton
+        leftButton.delegate = self
+        rightButton = childNode(withName: "rightButton") as! VaudevilleSpriteNodeButton
+        rightButton.delegate = self
+        super.didMove(to: view!)
+        cam = SKCameraNode()
+        self.camera = cam
+        self.addChild(cam!)
+        
         
         
     }
@@ -26,13 +38,23 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate {
         let skelePos = skele?.position
     //called before each frame is rendered
         let jumpUp = SKAction.moveBy(x:0, y: 10, duration: 0.2)
-        let jumpDown = SKAction.moveBy(x:0, y: -10, duration: 0.2)
-        let jumpSeq = SKAction.sequence([jumpUp, jumpDown])
+       
         if (jumpButton.state == .down){
             
-            skele?.run(jumpSeq)
+            skele?.run(jumpUp)
             
         }
+        if leftButton.state == .down{
+            skele?.position.x -= 5
+        }
+        if rightButton.state == .down{
+            skele?.position.x += 5
+        }
+        super.update(currentTime)
+        if let camera = cam, let pl = skele {
+            camera.position = pl.position
+        }
+       
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

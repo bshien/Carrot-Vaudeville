@@ -19,11 +19,13 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
     var cam: SKCameraNode?
     let carrotCategory: UInt32 = 0x1 << 0
     let ghostCategory: UInt32 = 0x1 << 1
-    
+    let skeleCategory: UInt32 = 0x1 << 2
+    var contactQueue = [SKPhysicsContact]()
     
     
     
     override func didMove(to: SKView){
+        
         jumpButton = childNode(withName: "jumpButton") as! VaudevilleSpriteNodeButton
         jumpButton.delegate = self
         leftButton = childNode(withName: "leftButton") as! VaudevilleSpriteNodeButton
@@ -34,7 +36,11 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
         cam = SKCameraNode()
         self.camera = cam
         self.addChild(cam!)
-        self.physicsWorld.contactDelegate = self
+        cam?.addChild(jumpButton)
+        cam?.addChild(leftButton)
+        cam?.addChild(rightButton)
+
+        physicsWorld.contactDelegate = self
         
         
         
@@ -42,7 +48,7 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
     
     override func update(_ currentTime: TimeInterval){
         let skele = self.childNode(withName: "skele")
-        
+        skele?.physicsBody?.categoryBitMask = skeleCategory
     //called before each frame is rendered
         let jumpUp = SKAction.moveBy(x:0, y: 10, duration: 0.2)
        
@@ -73,8 +79,11 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
             ghost.physicsBody?.usesPreciseCollisionDetection = true
             ghost.physicsBody?.categoryBitMask = ghostCategory
             ghost.physicsBody?.collisionBitMask = 0
+            ghost.physicsBody?.contactTestBitMask = skeleCategory
+            
             self.addChild(ghost)
         }
+        processContacts(forUpdate: currentTime)
        
     }
     
@@ -121,26 +130,38 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
     
     
     func didBegin(_ contact: SKPhysicsContact) {
-        let secondNode = contact.bodyB.node as! SKSpriteNode
-        let firstNode = contact.bodyA.node as! SKSpriteNode
-        
-        if(contact.bodyA.categoryBitMask == carrotCategory) && (contact.bodyB.categoryBitMask == ghostCategory) {
-            let contactPoint = contact.contactPoint
-            let contact_y = contactPoint.y
-            let target_y = secondNode.position.y
-            let margin = secondNode.frame.size.height/2 - 25
-            
-            if(contact_y > (target_y - margin)) && (contact_y < (target_y + margin)) {
-                secondNode.run(SKAction.removeFromParent())
-                firstNode.run(SKAction.removeFromParent())
-                //maybe this part doesn't work
-            }
-        }
+        contactQueue.append(contact)
         
     }
     
+    func handle(_ contact: SKPhysicsContact){
+        if contact.bodyA.node?.parent == nil || contact.bodyB.node?.parent == nil{
+            return
+        }
+        let nodeNames = [contact.bodyA.node!.name, contact.bodyB.node!.name!]
+        if nodeNames.contains("bulletNode") && nodeNames.contains("ghostNode") {
+            //carrot hits ghost
+            contact.bodyA.node!.removeFromParent()
+            contact.bodyB.node!.removeFromParent()
+        }
+        
+        else if nodeNames.contains("skele") && nodeNames.contains("ghostNode") {
+            //skele hits ghost
+            let carrotMenu = GameScene(fileNamed: "GameScene")
+            self.view?.presentScene(carrotMenu)
+        }
+    }
     
     
+    func processContacts(forUpdate currentTime: CFTimeInterval){
+        for contact in contactQueue{
+            handle(contact)
+        
+        if let index = contactQueue.index(of: contact){
+            contactQueue.remove(at: index)
+        }
+        }
+    }
     
     
     
@@ -157,7 +178,7 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
         bullet.physicsBody = SKPhysicsBody(rectangleOf: bullet.frame.size)
         bullet.physicsBody?.usesPreciseCollisionDetection = true
         bullet.physicsBody?.categoryBitMask = carrotCategory
-        bullet.physicsBody?.contactTestBitMask = carrotCategory | ghostCategory
+        bullet.physicsBody?.contactTestBitMask = ghostCategory
         bullet.physicsBody?.collisionBitMask = 0
         return bullet
         

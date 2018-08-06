@@ -36,9 +36,7 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
         cam = SKCameraNode()
         self.camera = cam
         self.addChild(cam!)
-        cam?.addChild(jumpButton)
-        cam?.addChild(leftButton)
-        cam?.addChild(rightButton)
+        
 
         physicsWorld.contactDelegate = self
         
@@ -67,9 +65,21 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
         if let camera = cam, let pl = skele {
             camera.position = pl.position
         }
+        if let jumpBtn = jumpButton, let pl = skele {
+            jumpBtn.position = CGPoint(x: pl.position.x + 300,y: pl.position.y - 150)
+
+        }
+        if let leftBtn = leftButton, let pl = skele {
+            leftBtn.position = CGPoint(x: pl.position.x - 300,y: pl.position.y - 150)
+
+        }
+        if let rightBtn = rightButton, let pl = skele {
+            rightBtn.position = CGPoint(x: pl.position.x - 200,y: pl.position.y - 150)
+
+        }
         if self.childNode(withName: "ghostNode") == nil {
             let ghost = SKSpriteNode(imageNamed: "ghost.png")
-            ghost.position = CGPoint(x: size.width, y: (skele?.position.y)!)
+            ghost.position = CGPoint(x: (skele?.position.x)! + 600, y: (skele?.position.y)!)
             ghost.name = "ghostNode"
             ghost.physicsBody = SKPhysicsBody(rectangleOf: ghost.frame.size)
             ghost.physicsBody?.isDynamic = true
@@ -88,6 +98,7 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let skele = self.childNode(withName: "skele")
         guard let touch = touches.first else {
             return
         }
@@ -97,16 +108,17 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
         let ypos = touchLocation.y
         var forward: CGFloat  = 1
         
-        if xpos<0 {
+        if xpos<(skele?.position.x)! {
             forward = -1
         }
-        let skele = self.childNode(withName: "skele")
+        
         let shootBullet = SKAction.run({
             let bulletNode = self.createBullet(forward: forward)
             self.addChild(bulletNode)
           
-            let moveUpAction = SKAction.moveBy(x: xpos * 10, y: ypos * 10, duration: 2.0)
+            let moveUpAction = SKAction.moveBy(x: (xpos - (skele?.position.x)!) * 10 , y: (ypos - (skele?.position.y)!) * 10 , duration: 2.0)
             let destroy = SKAction.removeFromParent()
+            
             let sequence = SKAction.sequence([moveUpAction, destroy])
             bulletNode.run(sequence)
             
@@ -173,12 +185,13 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
     let skelePos = skele?.position
     let skeleWidth = skele?.frame.size.width
     let bullet = SKSpriteNode(imageNamed: "carrot.png")
-        bullet.position = CGPoint(x: skelePos!.x + (skeleWidth!/2) * forward, y: skelePos!.y)
+        bullet.position = CGPoint(x: skelePos!.x + (skeleWidth!/2 + bullet.frame.size.width/2) * forward, y: skelePos!.y)
         bullet.name = "bulletNode"
         bullet.physicsBody = SKPhysicsBody(rectangleOf: bullet.frame.size)
         bullet.physicsBody?.usesPreciseCollisionDetection = true
         bullet.physicsBody?.categoryBitMask = carrotCategory
         bullet.physicsBody?.contactTestBitMask = ghostCategory
+        bullet.physicsBody?.affectedByGravity = false
         bullet.physicsBody?.collisionBitMask = 0
         return bullet
         

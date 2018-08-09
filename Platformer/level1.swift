@@ -24,6 +24,7 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
     var contactQueue = [SKPhysicsContact]()
     var slime1: SKSpriteNode!
     var snakeKing: SKSpriteNode!
+    var snakeKingHP = 50
     
     
     
@@ -46,7 +47,7 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
         
         snakeKing = childNode(withName: "snakeKing") as! SKSpriteNode
         snakeKing.physicsBody?.categoryBitMask = ghostCategory
-        snakeKing.physicsBody?.collisionBitMask = 1
+        
         snakeKing.physicsBody?.contactTestBitMask = skeleCategory
 
         physicsWorld.contactDelegate = self
@@ -56,6 +57,12 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
     }
     
     override func update(_ currentTime: TimeInterval){
+        if self.childNode(withName: "snakeKing") == nil {
+            let carrotMenu = GameScene(fileNamed: "GameScene")
+            self.view?.presentScene(carrotMenu)
+        }
+            
+            
         if self.childNode(withName: "slime") != nil {
         slime1 = childNode(withName: "slime") as! SKSpriteNode
         slime1.physicsBody?.categoryBitMask = ghostCategory
@@ -64,7 +71,15 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
         }
         let skele = self.childNode(withName: "skele")
         skele?.physicsBody?.categoryBitMask = skeleCategory
-    //called before each frame is rendered
+        
+        print(skele?.position ?? "default value")
+        
+        if (skele?.position.y)! < CGFloat(-1000) {
+            let carrotMenu = GameScene(fileNamed: "GameScene")
+            self.view?.presentScene(carrotMenu)
+        }
+    
+        
         let jumpUp = SKAction.moveBy(x:0, y: 10, duration: 0.2)
        
         if (jumpButton.state == .down){
@@ -108,8 +123,14 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
             if snakeKing.position.x - pl.position.x < (size.width/2) {
                 snakeKing.physicsBody?.velocity = CGVector(dx: -100, dy:0)
             }
+            
+            if snakeKingHP == 0 {
+                snakeKing.removeFromParent()
+            }
+            
         }
- 
+        
+        
         
         if self.childNode(withName: "ghostNode") == nil {
             let ghost = SKSpriteNode(imageNamed: "ghost.png")
@@ -186,7 +207,7 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
             return
         }
         let nodeNames = [contact.bodyA.node!.name, contact.bodyB.node!.name]
-        if nodeNames.contains("bulletNode") && (nodeNames.contains("ghostNode") || nodeNames.contains("slime") || nodeNames.contains("snakeKing") ) {
+        if nodeNames.contains("bulletNode") && (nodeNames.contains("ghostNode") || nodeNames.contains("slime")) {
             //carrot hits ghost
             contact.bodyA.node!.removeFromParent()
             contact.bodyB.node!.removeFromParent()
@@ -196,6 +217,15 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
             //skele hits ghost
             let carrotMenu = GameScene(fileNamed: "GameScene")
             self.view?.presentScene(carrotMenu)
+        }
+        else if nodeNames.contains("bulletNode") && nodeNames.contains("snakeKing") {
+            if (contact.bodyA.node!.name?.contains("bulletNode"))!{
+            contact.bodyA.node!.removeFromParent()
+            }
+            else{
+                contact.bodyB.node!.removeFromParent()
+            }
+            snakeKingHP -= 1
         }
     }
     

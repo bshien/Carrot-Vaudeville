@@ -23,6 +23,7 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
     let skeleCategory: UInt32 = 0x1 << 2
     var contactQueue = [SKPhysicsContact]()
     var slime1: SKSpriteNode!
+    var snakeKing: SKSpriteNode!
     
     
     
@@ -39,10 +40,14 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
         self.camera = cam
         self.addChild(cam!)
         backgroundlvlone = childNode(withName: "backgroundlvlone") as! SKSpriteNode
-        slime1 = childNode(withName: "slime") as! SKSpriteNode
-        slime1.physicsBody?.categoryBitMask = ghostCategory
-        slime1.physicsBody?.collisionBitMask = 1
-        slime1.physicsBody?.contactTestBitMask = skeleCategory
+        
+        
+        
+        
+        snakeKing = childNode(withName: "snakeKing") as! SKSpriteNode
+        snakeKing.physicsBody?.categoryBitMask = ghostCategory
+        snakeKing.physicsBody?.collisionBitMask = 1
+        snakeKing.physicsBody?.contactTestBitMask = skeleCategory
 
         physicsWorld.contactDelegate = self
         
@@ -51,6 +56,12 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
     }
     
     override func update(_ currentTime: TimeInterval){
+        if self.childNode(withName: "slime") != nil {
+        slime1 = childNode(withName: "slime") as! SKSpriteNode
+        slime1.physicsBody?.categoryBitMask = ghostCategory
+        slime1.physicsBody?.collisionBitMask = 1
+        slime1.physicsBody?.contactTestBitMask = skeleCategory
+        }
         let skele = self.childNode(withName: "skele")
         skele?.physicsBody?.categoryBitMask = skeleCategory
     //called before each frame is rendered
@@ -93,6 +104,13 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
             }
         }
         
+        if let snakeKing = snakeKing, let pl = skele {
+            if snakeKing.position.x - pl.position.x < (size.width/2) {
+                snakeKing.physicsBody?.velocity = CGVector(dx: -100, dy:0)
+            }
+        }
+ 
+        
         if self.childNode(withName: "ghostNode") == nil {
             let ghost = SKSpriteNode(imageNamed: "ghost.png")
             ghost.position = CGPoint(x: (skele?.position.x)! + 600, y: (skele?.position.y)!)
@@ -109,6 +127,7 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
             
             self.addChild(ghost)
         }
+ 
         processContacts(forUpdate: currentTime)
        
     }
@@ -166,14 +185,14 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
         if contact.bodyA.node?.parent == nil || contact.bodyB.node?.parent == nil{
             return
         }
-        let nodeNames = [contact.bodyA.node!.name, contact.bodyB.node!.name!]
-        if nodeNames.contains("bulletNode") && (nodeNames.contains("ghostNode") || nodeNames.contains("slime")) {
+        let nodeNames = [contact.bodyA.node!.name, contact.bodyB.node!.name]
+        if nodeNames.contains("bulletNode") && (nodeNames.contains("ghostNode") || nodeNames.contains("slime") || nodeNames.contains("snakeKing") ) {
             //carrot hits ghost
             contact.bodyA.node!.removeFromParent()
             contact.bodyB.node!.removeFromParent()
         }
         
-        else if nodeNames.contains("skele") && (nodeNames.contains("ghostNode") || nodeNames.contains("slime") ){
+        else if nodeNames.contains("skele") && (nodeNames.contains("ghostNode") || nodeNames.contains("slime") || nodeNames.contains("snakeKing") ){
             //skele hits ghost
             let carrotMenu = GameScene(fileNamed: "GameScene")
             self.view?.presentScene(carrotMenu)

@@ -30,22 +30,22 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
     
     override func didMove(to: SKView){
         
-        jumpButton = childNode(withName: "jumpButton") as! VaudevilleSpriteNodeButton
+        jumpButton = childNode(withName: "jumpButton") as? VaudevilleSpriteNodeButton
         jumpButton.delegate = self
-        leftButton = childNode(withName: "leftButton") as! VaudevilleSpriteNodeButton
+        leftButton = childNode(withName: "leftButton") as? VaudevilleSpriteNodeButton
         leftButton.delegate = self
-        rightButton = childNode(withName: "rightButton") as! VaudevilleSpriteNodeButton
+        rightButton = childNode(withName: "rightButton") as? VaudevilleSpriteNodeButton
         rightButton.delegate = self
         super.didMove(to: view!)
         cam = SKCameraNode()
         self.camera = cam
         self.addChild(cam!)
-        backgroundlvlone = childNode(withName: "backgroundlvlone") as! SKSpriteNode
+        backgroundlvlone = childNode(withName: "backgroundlvlone") as? SKSpriteNode
         
         
         
         
-        snakeKing = childNode(withName: "snakeKing") as! SKSpriteNode
+        snakeKing = childNode(withName: "snakeKing") as? SKSpriteNode
         snakeKing.physicsBody?.categoryBitMask = ghostCategory
         
         snakeKing.physicsBody?.contactTestBitMask = skeleCategory
@@ -58,13 +58,13 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
     
     override func update(_ currentTime: TimeInterval){
         if self.childNode(withName: "snakeKing") == nil {
-            let carrotMenu = GameScene(fileNamed: "GameScene")
-            self.view?.presentScene(carrotMenu)
+            let leveltwo = level2(fileNamed: "level2")
+            self.view?.presentScene(leveltwo)
         }
             
             
         if self.childNode(withName: "slime") != nil {
-        slime1 = childNode(withName: "slime") as! SKSpriteNode
+            slime1 = childNode(withName: "slime") as? SKSpriteNode
         slime1.physicsBody?.categoryBitMask = ghostCategory
         slime1.physicsBody?.collisionBitMask = 1
         slime1.physicsBody?.contactTestBitMask = skeleCategory
@@ -146,7 +146,7 @@ class level1: SKScene, VaudevilleSpriteNodeButtonDelegate, SKPhysicsContactDeleg
             ghost.physicsBody?.collisionBitMask = 0
             ghost.physicsBody?.contactTestBitMask = skeleCategory
             
-            self.addChild(ghost)
+            //self.addChild(ghost)
         }
  
         processContacts(forUpdate: currentTime)

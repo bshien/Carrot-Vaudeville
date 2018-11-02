@@ -223,13 +223,16 @@
 				TargetAttributes = {
 					CA1033C320FBC579007723B4 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 					};
 					CA1033DD20FBC586007723B4 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 						TestTargetID = CA1033C320FBC579007723B4;
 					};
 					CA1033E820FBC586007723B4 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 						TestTargetID = CA1033C320FBC579007723B4;
 					};
 				};
@@ -478,9 +481,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.nodnarb.Platformer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nodnarbb.Platformer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -497,9 +500,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.nodnarb.Platformer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nodnarbb.Platformer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -519,7 +522,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nodnarb.PlatformerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Platformer.app/Platformer";
 			};
@@ -540,7 +543,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nodnarb.PlatformerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Platformer.app/Platformer";
 			};
@@ -560,7 +563,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nodnarb.PlatformerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Platformer;
 			};
@@ -580,7 +583,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nodnarb.PlatformerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Platformer;
 			};
